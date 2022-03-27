@@ -19,10 +19,10 @@ def process_order(order):
     #check for a match
 
     #grab data from database
-    orders = session.query(Order).filter(Order.filled == None).all() #create a interable to look through orders
+    orders = session.query(Order).all() #create a interable to look through orders
 
     for existing_order in orders:
-        if ((existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount)):
+        if ((existing_order.filled is None) and (existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount)):
             new_order.filled = datetime.now()
             existing_order.filled = datetime.now()
             existing_order.counterparty_id = new_order.id
