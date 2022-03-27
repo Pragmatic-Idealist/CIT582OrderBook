@@ -19,7 +19,7 @@ def process_order(order):
     #check for a match
 
     #grab data from database
-    orders = ession.query(Order).filter(Order.filled == None).all() #create a interable to look through orders
+    orders = session.query(Order).filter(Order.filled == None).all() #create a interable to look through orders
 
     for existing_order in orders:
         if ((existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount)):
