@@ -22,7 +22,8 @@ def process_order(order):
     orders = session.query(Order).filter(Order.filled == None).all() #create a interable to look through orders
 
     for existing_order in orders:
-        if ((existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount)):
+        if ((existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) 
+        and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount)):
             # set filled to current time stamp
             new_order.filled = datetime.now()
             existing_order.filled = datetime.now()
@@ -35,18 +36,20 @@ def process_order(order):
 
             if (new_order.sell_amount < existing_order.buy_amount):
                 # create child order
-                new_order = Order(sender_pk=new_order.sender_pk,receiver_pk=new_order.receiver_pk, buy_currency=new_order.buy_currency, 
-                sell_currency=new_order.sell_currency, buy_amount=existing_order.buy_amount - new_order.sell_amount, sell_amount= ratio* (existing_order.buy_amount - new_order.sell_amount), creator_id = new_order.id)
+                new_order = Order(sender_pk=existing_order.sender_pk,receiver_pk=existing_order.receiver_pk, buy_currency=existing_order.buy_currency, 
+                sell_currency=existing_order.sell_currency, buy_amount=existing_order.buy_amount - new_order.sell_amount, 
+                sell_amount= ratio* (existing_order.buy_amount - new_order.sell_amount), creator_id = existing_order.id)
                 
                 #add child order to session
-                #session.add(new_order)
-                #session.commit()
+                session.add(new_order)
+                session.commit()
             elif (new_order.buy_amount > existing_order.sell_amount):
                 # create child order
                 new_order = Order(sender_pk=new_order.sender_pk,receiver_pk=new_order.receiver_pk, buy_currency=new_order.buy_currency, 
-                sell_currency=new_order.sell_currency, buy_amount=new_order.buy_amount - existing_order.sell_amount, sell_amount= ratio*(new_order.buy_amount - existing_order.sell_amount), creator_id = new_order.id)
+                sell_currency=new_order.sell_currency, buy_amount=new_order.buy_amount - existing_order.sell_amount, 
+                sell_amount= ratio*(new_order.buy_amount - existing_order.sell_amount), creator_id = new_order.id)
 
                 #add child order to session
-                #session.add(new_order)
-                #session.commit()
+                session.add(new_order)
+                session.commit()
     pass
