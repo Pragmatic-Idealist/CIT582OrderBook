@@ -38,15 +38,15 @@ def process_order(order):
                 new_order = Order(sender_pk=new_order.sender_pk,receiver_pk=new_order.receiver_pk, buy_currency=new_order.buy_currency, 
                 sell_currency=new_order.sell_currency, buy_amount=existing_order.buy_amount - new_order.sell_amount, sell_amount= ratio* (existing_order.buy_amount - new_order.sell_amount), creator_id = new_order.id)
                 
-                # add child order to session
-                #session.add(new_order)
-                #session.commit()
+                add child order to session
+                session.add(new_order)
+                session.commit()
             elif (new_order.buy_amount > existing_order.sell_amount):
                 # create child order
                 new_order = Order(sender_pk=new_order.sender_pk,receiver_pk=new_order.receiver_pk, buy_currency=new_order.buy_currency, 
                 sell_currency=new_order.sell_currency, buy_amount=new_order.buy_amount - existing_order.sell_amount, sell_amount= ratio*(new_order.buy_amount - existing_order.sell_amount), creator_id = new_order.id)
 
-                # add child order to session
-                #session.add(new_order)
-                #session.commit()
+                add child order to session
+                session.add(new_order)
+                session.commit()
     pass
