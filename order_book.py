@@ -30,6 +30,7 @@ def process_order(order):
 
             if existing_order.sell_amount < new_order.buy_amount:
                 new_order = Order(sender_pk=new_order.sender_pk,receiver_pk=new_order.receiver_pk, buy_currency=new_order.buy_currency, sell_currency=new_order.sell_currency, buy_amount=new_order.buy_amount, sell_amount= new_order.sell_amount, creator_id = new_order.id)
-
+                session.add(new_order)
+                session.commit()
 
     pass
