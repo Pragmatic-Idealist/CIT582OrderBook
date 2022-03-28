@@ -31,7 +31,7 @@ def process_order(order):
             new_order.counterparty_id = existing_order.id
 
             # order buy sell relationship
-            ratio = order.buy_amount/order.sell_amount
+            ratio = new_order.buy_amount/new_order.sell_amount
 
             if (new_order.sell_amount < existing_order.buy_amount):
                 # create child order
