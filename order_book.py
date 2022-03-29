@@ -29,6 +29,7 @@ def process_order(order):
             # set filled to current time stamp
             new_order.filled = datetime.now()
             existing_order.filled = datetime.now()
+            
             # setting counterparty id to each other
             existing_order.counterparty_id = new_order.id
             new_order.counterparty_id = existing_order.id
@@ -38,7 +39,7 @@ def process_order(order):
             
             update_new_order = new_order
             update_existing_order= existing_order
-            
+
             #commit changes
             session.commit()
 
@@ -65,3 +66,5 @@ def process_order(order):
                 session.add(new_order)
                 session.commit()
                 break
+            else:
+              break
