@@ -33,6 +33,9 @@ def process_order(order):
             existing_order.counterparty_id = new_order.id
             new_order.counterparty_id = existing_order.id
             
+            session.query(Order).filter(Order.id == new_order.id).first() = new_order
+            session.query(Order).filter(Order.id == existing_order.id).first() = existing_order
+            
             #commit changes
             session.commit()
 
