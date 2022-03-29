@@ -25,7 +25,7 @@ def process_order(order):
 
     for existing_order in orders:
         if ((existing_order.buy_currency == new_order.sell_currency) and (existing_order.sell_currency == new_order.buy_currency) 
-        and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount) and ((new_order.buy_amount/existing_order.buy_amount)<=(new_order.sell_amount/existing_order.sell_amount)):
+        and (existing_order.sell_amount / existing_order.buy_amount >= new_order.buy_amount/new_order.sell_amount) and (new_order.buy_amount/existing_order.buy_amount <= new_order.sell_amount/existing_order.sell_amount):
             # set filled to current time stamp
             new_order.filled = datetime.now()
             existing_order.filled = datetime.now()
