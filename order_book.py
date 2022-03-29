@@ -59,4 +59,3 @@ def process_order(order):
                 session.add(new_order)
                 session.commit()
                 break
-        pass
