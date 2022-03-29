@@ -32,6 +32,9 @@ def process_order(order):
             # setting counterparty id to each other
             existing_order.counterparty_id = new_order.id
             new_order.counterparty_id = existing_order.id
+            
+            #commit changes
+            session.commit()
 
             # order buy sell relationship
             ratio = new_order.buy_amount/new_order.sell_amount
